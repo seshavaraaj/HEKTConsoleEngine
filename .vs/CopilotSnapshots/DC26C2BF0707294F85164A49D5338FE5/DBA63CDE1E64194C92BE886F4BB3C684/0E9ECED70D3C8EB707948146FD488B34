@@ -1,0 +1,5 @@
+﻿#pragma once
+
+extern struct Transform;
+extern struct Sprite;
+extern class IObject;

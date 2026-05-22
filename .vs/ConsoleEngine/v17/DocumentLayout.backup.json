@@ -3,16 +3,32 @@
   "WorkspaceRootPath": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Screen.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|solutionrelative:ConsoleEngine\\Screen.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\SpaceShip.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|solutionrelative:ConsoleEngine\\SpaceShip.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Screen.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|solutionrelative:ConsoleEngine\\Screen.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\SpaceShip.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|solutionrelative:ConsoleEngine\\SpaceShip.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|solutionrelative:ConsoleEngine\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Bullet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|solutionrelative:ConsoleEngine\\Bullet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Object.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|solutionrelative:ConsoleEngine\\Object.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Main.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|solutionrelative:ConsoleEngine\\Main.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Bullet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|solutionrelative:ConsoleEngine\\Bullet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F91EB2F4-E494-4A1C-A62C-282E9C65490C}|ConsoleEngine\\ConsoleEngine.vcxproj|solutionrelative:ConsoleEngine\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,41 +46,93 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Screen.cpp",
-              "DocumentMoniker": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Screen.cpp",
-              "RelativeDocumentMoniker": "ConsoleEngine\\Screen.cpp",
-              "ToolTip": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Screen.cpp",
-              "RelativeToolTip": "ConsoleEngine\\Screen.cpp",
-              "ViewState": "AgIAACMAAAAAAAAAAAAcwDoAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "Main.h",
+              "DocumentMoniker": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Main.h",
+              "RelativeDocumentMoniker": "ConsoleEngine\\Main.h",
+              "ToolTip": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Main.h",
+              "RelativeToolTip": "ConsoleEngine\\Main.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwcAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-22T08:31:09.624Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Object.cpp",
+              "DocumentMoniker": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Object.cpp",
+              "RelativeDocumentMoniker": "ConsoleEngine\\Object.cpp",
+              "ToolTip": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Object.cpp",
+              "RelativeToolTip": "ConsoleEngine\\Object.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-05-20T07:10:27.154Z",
+              "WhenOpened": "2026-05-22T08:22:57.733Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Object.h",
+              "DocumentMoniker": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Object.h",
+              "RelativeDocumentMoniker": "ConsoleEngine\\Object.h",
+              "ToolTip": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Object.h",
+              "RelativeToolTip": "ConsoleEngine\\Object.h",
+              "ViewState": "AgIAABgAAAAAAAAAAABLwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-22T08:22:57.592Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Bullet.h",
+              "DocumentMoniker": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Bullet.h",
+              "RelativeDocumentMoniker": "ConsoleEngine\\Bullet.h",
+              "ToolTip": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Bullet.h",
+              "RelativeToolTip": "ConsoleEngine\\Bullet.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-22T08:18:02.516Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "main.cpp",
-              "DocumentMoniker": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\main.cpp",
-              "RelativeDocumentMoniker": "ConsoleEngine\\main.cpp",
-              "ToolTip": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\main.cpp",
-              "RelativeToolTip": "ConsoleEngine\\main.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAsAAAAAAAAAA==",
+              "Title": "Bullet.cpp",
+              "DocumentMoniker": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Bullet.cpp",
+              "RelativeDocumentMoniker": "ConsoleEngine\\Bullet.cpp",
+              "ToolTip": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Bullet.cpp",
+              "RelativeToolTip": "ConsoleEngine\\Bullet.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-05-20T07:15:16.974Z",
+              "WhenOpened": "2026-05-22T08:18:09.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SpaceShip.h",
+              "DocumentMoniker": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\SpaceShip.h",
+              "RelativeDocumentMoniker": "ConsoleEngine\\SpaceShip.h",
+              "ToolTip": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\SpaceShip.h",
+              "RelativeToolTip": "ConsoleEngine\\SpaceShip.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-22T08:14:21.098Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Screen.h",
-              "DocumentMoniker": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Screen.h",
-              "RelativeDocumentMoniker": "ConsoleEngine\\Screen.h",
-              "ToolTip": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\Screen.h",
-              "RelativeToolTip": "ConsoleEngine\\Screen.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-05-20T07:12:06.795Z",
+              "Title": "SpaceShip.cpp",
+              "DocumentMoniker": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\SpaceShip.cpp",
+              "RelativeDocumentMoniker": "ConsoleEngine\\SpaceShip.cpp",
+              "ToolTip": "C:\\Projects\\C\u0026C\u002B\u002B\\ConsoleEngine\\ConsoleEngine\\SpaceShip.cpp",
+              "RelativeToolTip": "ConsoleEngine\\SpaceShip.cpp",
+              "ViewState": "AgIAABcAAAAAAAAAAAAywCwAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-22T07:57:52.427Z",
               "EditorCaption": ""
             }
           ]

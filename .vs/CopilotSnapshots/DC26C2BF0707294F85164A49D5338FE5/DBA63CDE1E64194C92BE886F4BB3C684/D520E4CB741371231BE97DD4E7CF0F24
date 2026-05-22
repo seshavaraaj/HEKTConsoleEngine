@@ -1,0 +1,8 @@
+﻿#include "SpaceShip.h"
+
+class SpaceShip : public IObject
+{
+	SpaceShip(Transform transform, Sprite sprite) : IObject(transform, sprite)
+	{
+	}
+}

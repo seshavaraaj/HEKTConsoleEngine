@@ -1,0 +1,26 @@
+#include "Bullet.h"
+#include "Screen.h"
+#include "Main.h"
+
+Bullet::Bullet(Transform transform, Sprite sprite) : IObject(transform, sprite)
+{
+}
+
+void Bullet::Render()
+{
+	SetBufferChar(GetTransformX(), GetTransformY(), '\xFE');
+}
+
+void Bullet::Update(float deltaTime)
+{
+	if (GetTransformY() < 0)
+	{
+		delete this;
+		return;
+	}
+	transform.positionY -= 100 * deltaTime;
+}
+
+void Bullet::Awake()
+{
+}

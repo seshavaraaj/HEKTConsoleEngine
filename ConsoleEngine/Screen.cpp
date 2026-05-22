@@ -2,8 +2,14 @@
 #include <windows.h>
 #include "Screen.h"
 
-HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-WORD Color[1] = { FOREGROUND_RED };
+int const SCREEN_HEIGHT = 56; //56
+int const SCREEN_WIDTH = 209; //209
+
+//y * width + x
+char* screenBuffer = new char[SCREEN_WIDTH * SCREEN_HEIGHT + 1];
+DWORD dwBytesWritten;
+
+HANDLE hOut = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 
 void SetFullscreen()
 {
@@ -16,19 +22,6 @@ void SetFullscreen()
     while (!IsWindowFullscreen(consoleWindow));
 }
 
-void FillScreenWithCharacter(char32_t character)
-{
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    GetConsoleScreenBufferInfo(hOut, &csbi);
-    DWORD consoleSize = csbi.dwSize.X * csbi.dwSize.Y;
-    COORD topLeft = {0, 0};
-    DWORD charsWritten;
-
-    FillConsoleOutputCharacter(hOut, character, consoleSize, topLeft, &charsWritten);
-    FillConsoleOutputAttribute(hOut, csbi.wAttributes, consoleSize, topLeft, &charsWritten);
-    SetConsoleCursorPosition(hOut, topLeft);
-}
-
 bool IsWindowFullscreen(HWND hwnd)
 {
     WINDOWPLACEMENT wp{};
@@ -39,31 +32,35 @@ bool IsWindowFullscreen(HWND hwnd)
     return wp.showCmd == SW_MAXIMIZE;
 }
 
-void WriteCharacterAtPosition(char32_t character, COORD position)
-{
-    CHAR_INFO ci;
-
-    SMALL_RECT rect = {
-        position.X,
-        position.Y,
-        position.X,
-        position.Y
-    };
-
-    COORD size = { 1,1 };
-	COORD zero = { 0,0 };
-
-	ReadConsoleOutput(hOut, &ci, size, zero, &rect);
-
-    ci.Char.UnicodeChar = character;
-
-	WriteConsoleOutput(hOut, &ci, size, zero, &rect);
-}
-
 void LockHideCursor()
 {
     CONSOLE_CURSOR_INFO cursorInfo;
     GetConsoleCursorInfo(hOut, &cursorInfo);
     cursorInfo.bVisible = false;
     SetConsoleCursorInfo(hOut, &cursorInfo);
+}
+
+void SetupCustomBuffer()
+{
+    SetConsoleActiveScreenBuffer(hOut);
+	dwBytesWritten = 0;
+}
+
+void RenderScreenBuffer()
+{
+	WriteConsoleOutputCharacterA(hOut, screenBuffer, SCREEN_WIDTH * SCREEN_HEIGHT, { 0, 0 }, &dwBytesWritten);
+}
+
+void ClearScreenBuffer()
+{
+    for (int i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; i++)
+    {
+        screenBuffer[i] = ' ';
+    }
+}
+
+void SetBufferChar(int x, int y, char c)
+{
+	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT) return;
+    screenBuffer[(y * SCREEN_WIDTH) + x] = c;
 }

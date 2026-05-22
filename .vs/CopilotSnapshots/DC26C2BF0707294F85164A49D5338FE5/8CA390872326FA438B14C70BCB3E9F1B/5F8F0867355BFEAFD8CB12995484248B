@@ -1,0 +1,13 @@
+﻿#include "Object.h"
+#pragma once
+
+
+class Bullet : public IObject
+{
+public:
+	Bullet(Transform transform, Sprite sprite);
+	~Bullet();
+	void Render() override;
+	void Awake() override;
+	void Update(float deltaTime) override;
+};

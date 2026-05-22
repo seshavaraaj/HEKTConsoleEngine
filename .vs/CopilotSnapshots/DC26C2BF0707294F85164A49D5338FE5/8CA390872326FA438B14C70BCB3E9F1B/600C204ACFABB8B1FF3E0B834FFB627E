@@ -1,0 +1,15 @@
+﻿#include <vector>
+#pragma once
+#include <vector>
+
+class IObject;
+
+extern void Debug();
+
+extern void HandleDebug();
+
+extern void MainUpdate(float deltaTime);
+
+extern void SetObjectRenders();
+
+extern std::vector<IObject*> IObjects;

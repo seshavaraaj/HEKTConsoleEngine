@@ -1,0 +1,13 @@
+﻿#include <vector>
+#include "Object.h"
+
+#pragma once
+extern void Debug();
+
+extern void HandleDebug();
+
+extern void MainUpdate(float deltaTime);
+
+extern void RenderObjects();
+
+extern std::vector<IObject> IObjects;

@@ -1,0 +1,11 @@
+﻿#include "Object.h"
+#include "Screen.h"
+#include "Main.h"
+#include "Object.h"
+
+IObject::IObject(Transform transform, Sprite sprite)
+{
+	IObjects.push_back(this);
+	this->transform = transform;
+	this->sprite = sprite;
+}

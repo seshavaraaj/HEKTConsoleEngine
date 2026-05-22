@@ -1,16 +1,24 @@
 #pragma once
 #include <windows.h>
 
+extern const int SCREEN_HEIGHT;
+extern const int SCREEN_WIDTH;
+
+extern char* screenBuffer;
+extern DWORD dwBytesWritten;
+
 extern HANDLE hOut;
 
 extern void SetFullscreen();
 
-extern void FillScreenWithCharacter(char32_t character);
-
 extern bool IsWindowFullscreen(HWND hwnd);
-
-extern void WriteCharacterAtPosition(char32_t character, COORD position);
 
 extern void LockHideCursor();
 
-extern WORD Color[1];
+extern void SetupCustomBuffer();
+
+extern void RenderScreenBuffer();
+
+extern void ClearScreenBuffer();
+
+extern void SetBufferChar(int x, int y, char c);

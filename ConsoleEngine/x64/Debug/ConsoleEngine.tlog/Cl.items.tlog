@@ -1,2 +1,6 @@
-C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\main.cpp;C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\x64\Debug\main.obj
+C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\Bullet.cpp;C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\x64\Debug\Bullet.obj
+C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\Input.cpp;C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\x64\Debug\Input.obj
+C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\Main.cpp;C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\x64\Debug\Main.obj
+C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\Object.cpp;C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\x64\Debug\Object.obj
 C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\Screen.cpp;C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\x64\Debug\Screen.obj
+C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\SpaceShip.cpp;C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\x64\Debug\SpaceShip.obj

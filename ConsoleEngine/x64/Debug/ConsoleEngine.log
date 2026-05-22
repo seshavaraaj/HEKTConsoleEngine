@@ -1,4 +1,1 @@
-﻿  Screen.cpp
-C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\Screen.cpp(27,38): warning C4244: 'argument': conversion from 'char32_t' to 'WCHAR', possible loss of data
-C:\Projects\C&C++\ConsoleEngine\ConsoleEngine\Screen.cpp(58,27): warning C4244: '=': conversion from 'char32_t' to 'WCHAR', possible loss of data
-  ConsoleEngine.vcxproj -> C:\Projects\C&C++\ConsoleEngine\x64\Debug\ConsoleEngine.exe
+﻿  ConsoleEngine.vcxproj -> C:\Projects\C&C++\ConsoleEngine\x64\Debug\ConsoleEngine.exe

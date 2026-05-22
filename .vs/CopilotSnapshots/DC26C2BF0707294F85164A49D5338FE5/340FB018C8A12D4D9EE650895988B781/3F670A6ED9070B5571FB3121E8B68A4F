@@ -1,0 +1,16 @@
+﻿#include "SpaceShip.h"
+#include "Object.h"
+#include "Screen.h"
+
+class SpaceShip : public IObject
+{
+public:
+	SpaceShip(Transform transform, Sprite sprite) : IObject(transform, sprite)
+	{
+	}
+
+	void Render() override
+	{
+		// Render implementation
+	}
+};

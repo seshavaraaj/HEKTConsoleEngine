@@ -1,0 +1,71 @@
+﻿#include "Screen.h"
+#include "Input.h"
+#include "Main.h"
+#include <chrono>
+#include <string>
+#include <thread>
+
+const int TARGET_FRAME_RATE = 60;
+const bool FRAME_RATE_CAP = false;
+
+std::vector<IObject> Objects;
+
+std::chrono::duration<float> deltaTime;
+std::chrono::duration<float> targetFrameTime = std::chrono::duration<float>(1.0f / TARGET_FRAME_RATE);
+float fDeltaTime;
+bool debugMode = false;
+
+int main()
+{
+	auto timePoint1 = std::chrono::high_resolution_clock::now();
+	auto timePoint2 = std::chrono::high_resolution_clock::now();
+
+	LockHideCursor();
+	SetFullscreen();
+	SetupCustomBuffer();
+	while (true)
+	{
+		timePoint2 = std::chrono::high_resolution_clock::now();
+		deltaTime = timePoint2 - timePoint1;
+		timePoint1 = timePoint2;
+		fDeltaTime = deltaTime.count();
+
+		ClearScreenBuffer();
+		MainUpdate(fDeltaTime);
+		HandleDebug();
+		RenderScreenBuffer();
+		UpdateKeyStates();
+		
+		if (FRAME_RATE_CAP)
+		{
+			auto targetWakeTime = timePoint2 + targetFrameTime;
+			std::this_thread::sleep_until(targetWakeTime);
+		}
+	}
+	return 0;
+}
+
+void Debug()
+{
+	std::string debugString = "Delta Time: " + std::to_string(fDeltaTime) + " FPS: " + std::to_string(1/fDeltaTime);
+	debugString.copy(screenBuffer, 209);
+}
+
+void HandleDebug()
+{
+	if (GetKeyDown(VK_F3))
+	{
+		debugMode = !debugMode;
+	}
+	if (debugMode) Debug();
+}
+
+void RenderObjects()
+{
+
+}
+
+void MainUpdate(float deltaTime)
+{
+	
+}
