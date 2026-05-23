@@ -2,6 +2,8 @@
 
 class IObject;
 
+extern int score;
+
 extern void Debug();
 
 extern void HandleDebug();
@@ -15,4 +17,7 @@ extern void SetObjectAwakes();
 
 extern void SetObjectUpdates(float deltaTime);
 
+extern void SetObjectCollisionUpdates();
+
 extern std::vector<IObject*> IObjects;
+

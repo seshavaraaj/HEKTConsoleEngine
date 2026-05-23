@@ -1,26 +1,24 @@
-#include "SpaceShip.h"
+﻿#include "SpaceShip.h"
 #include "Object.h"
 #include "Screen.h"
 #include "input.h"
 #include "Bullet.h"
 #include <vector>
 
-SpaceShip::SpaceShip() : IObject(Transform{}, Sprite{})
+SpaceShip::SpaceShip(Transform transform) : IObject()
 {
-	transform.positionX = 100;
-	transform.positionY = 50;
+	this->transform = transform;
+	sprite.Art = "  \xDC  \n"
+				"\xDC\xDB\xDB\xDB\xDC";
+	sprite.Width = 5;
+	sprite.Height = 2;
+	sprite.Color = White;
+	tag = "Player";
 }
 
 void SpaceShip::Render()
 {
-	SetBufferChar(GetTransformX() + 1, GetTransformY(), '\xDB');
-	SetBufferChar(GetTransformX(), GetTransformY(), '\xDB');
-	SetBufferChar(GetTransformX() - 1, GetTransformY(), '\xDB');
-
-	SetBufferChar(GetTransformX() - 2, GetTransformY(), '\xDC');
-	SetBufferChar(GetTransformX() + 2, GetTransformY(), '\xDC');
-
-	SetBufferChar(GetTransformX(), GetTransformY() - 1, '\xDC');
+	SetBufferString(GetTransformX(), GetTransformY(), sprite.Width, sprite.Height, sprite.Art, sprite.Color);
 }
 
 void SpaceShip::Shoot()
@@ -34,13 +32,19 @@ void SpaceShip::Awake()
 
 void SpaceShip::Update(float deltaTime)
 {
+	if (health <= 0)
+	{
+		delete this;
+		return;
+	}
+
 	if (GetKey(VK_LEFT))
 	{
-		transform.positionX -= 50 * deltaTime;
+		BoundMove(-50 * deltaTime, 0, sprite.Width, sprite.Height);
 	}
 	if (GetKey(VK_RIGHT))
 	{
-		transform.positionX += 50 * deltaTime;
+		BoundMove(50 * deltaTime, 0, sprite.Width, sprite.Height);
 	}
 	if (GetKey(VK_SPACE))
 	{
@@ -59,6 +63,6 @@ void SpaceShip::Update(float deltaTime)
 
 void SpaceShip::GenerateBullet()
 {
-	Bullet* bullet = new Bullet(Transform{ transform.positionX, transform.positionY - 1 }, Sprite{});
+	Bullet* bullet = new Bullet(Transform{ transform.positionX, transform.positionY - 2 });
 	bullets.push_back(bullet);
 }
