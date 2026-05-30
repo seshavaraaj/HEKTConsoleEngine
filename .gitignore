@@ -1,2 +1,75 @@
-#git
+# Git attributes file (keep if present)
 .gitattributes
+
+# Visual Studio / Visual C++
+.vs/
+*.VC.db
+*.VC.VC.opendb
+*.suo
+*.user
+*.userosscache
+*.sdf
+*.ipch/
+*.opendb
+*.opensdf
+
+# Build results
+[Bb]in/
+[Oo]bj/
+build/
+Debug/
+Release/
+x64/Debug/
+x64/Release/
+
+# Visual C++ intermediate and output files
+*.obj
+*.o
+*.exe
+*.dll
+*.lib
+*.a
+*.lo
+*.sbr
+*.pch
+*.pdb
+*.idb
+*.ilk
+*.exp
+*.ipdb
+
+# MSBuild generated files
+*.BuildLog.*
+*.log
+*.tlog/
+*.lastbuildstate
+
+# Visual Studio project user files (should not be committed)
+*.vcxproj.user
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CMakeScripts/
+CTestTestfile.cmake
+Makefile
+build-*/
+
+# NuGet
+*.nupkg
+packages/
+
+# Rider / ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+# Misc
+*.recipe
+*.ilk
+*.manifest
+
+# Ignore editor folders
+.vscode/
+
+# End of file
