@@ -1,5 +1,0 @@
-﻿#pragma once
-
-struct Transform;
-struct Sprite;
-class IObject;
