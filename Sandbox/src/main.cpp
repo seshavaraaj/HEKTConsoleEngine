@@ -1,7 +1,8 @@
 #include <Application.h>
+#include <entt/entt.hpp>
 
 int main() {
-	HEKTConsoleEngine::Application app;
-	app.Run();
+	HEKTConsoleEngine::Application App;
+	App.Run();
 	return 0;
 }
