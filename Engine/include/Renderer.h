@@ -42,13 +42,18 @@ namespace HEKTConsoleEngine
 	    ~Renderer();
 	    void ClearScreenBuffer();
 		void RenderScreenBuffer();
+		void RenderColorBuffer();
+		void HideConsoleCursor();
 		void HandleResize();
         void CopyToScreenBuffer(std::string text);
+		void SetBufferChar(int x, int y, char c, WORD color);
+		void SetBufferString(int x, int y, int width, int height, const std::string& str, WORD color);
+		void SetBufferString(int x, int y, int width, int height, const std::string& str, WORD* colors);
+        void SetBufferString(int x, int y, const std::string& str, WORD color);
 
     private:
 	    void CreateCustomBuffer();
 	    void SetupCustomBuffer(int width, int height);
         void GetVisibleConsoleSize(int& width, int& height);
-		void RenderColorBuffer();
     };
 }

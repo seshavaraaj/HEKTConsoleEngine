@@ -10,6 +10,7 @@ namespace HEKTConsoleEngine
 		GetVisibleConsoleSize(visibleWidth, visibleHeight);
 		SetupCustomBuffer(visibleWidth, visibleHeight);
 		ClearScreenBuffer();
+		HideConsoleCursor();
     }
 
     Renderer::~Renderer()
@@ -106,5 +107,81 @@ namespace HEKTConsoleEngine
         if (length > screenWidth * screenHeight)
             length = screenWidth * screenHeight;
 		memcpy(screenBuffer, text.c_str(), length);
+	}
+
+    void Renderer::SetBufferChar(int x, int y, char c, WORD color)
+    {
+        if (x < 0 || x >= screenWidth || y < 0 || y >= screenHeight)
+            return;
+        screenBuffer[y * screenWidth + x] = c;
+		colorBuffer[y * screenWidth + x] = color;
+	}
+    
+    void Renderer::SetBufferString(int x, int y, int width, int height, const std::string& str, WORD color)
+    {
+        int halfSpriteWidth = width / 2;
+        int halfSpriteHeight = height / 2;
+        int calculatedX = x - halfSpriteWidth;
+        int calculatedY = y - halfSpriteHeight;
+        int currentX = calculatedX;
+        int currentY = calculatedY;
+
+        for (int i = 0; i < str.length(); i++)
+        {
+            if (str[i] == '\n')
+            {
+                currentY++;
+                currentX = calculatedX;
+                continue;
+            }
+            SetBufferChar(currentX, currentY, str[(int)i], color);
+            currentX++;
+        }
+    }
+
+    void Renderer::SetBufferString(int x, int y, int width, int height, const std::string& str, WORD* colors)
+    {
+        int halfSpriteWidth = width / 2;
+        int halfSpriteHeight = height / 2;
+        int calculatedX = x - halfSpriteWidth;
+        int calculatedY = y - halfSpriteHeight;
+        int currentX = calculatedX;
+        int currentY = calculatedY;
+        for (int i = 0; i < str.length(); i++)
+        {
+            if (str[i] == '\n')
+            {
+                currentY++;
+                currentX = calculatedX;
+                continue;
+            }
+            SetBufferChar(currentX, currentY, str[(int)i], colors[i]);
+            currentX++;
+        }
+	}
+
+    void Renderer::SetBufferString(int x, int y, const std::string& str, WORD color)
+    {
+        int currentX = x;
+        int currentY = y;
+        for (int i = 0; i < str.length(); i++)
+        {
+            if (str[i] == '\n')
+            {
+                currentY++;
+                currentX = x;
+                continue;
+            }
+            SetBufferChar(currentX, currentY, str[(int)i], color);
+            currentX++;
+        }
+    }
+
+    void Renderer::HideConsoleCursor()
+    {
+        CONSOLE_CURSOR_INFO cursorInfo;
+        GetConsoleCursorInfo(hOut, &cursorInfo);
+        cursorInfo.bVisible = FALSE;
+        SetConsoleCursorInfo(hOut, &cursorInfo);
 	}
 }
