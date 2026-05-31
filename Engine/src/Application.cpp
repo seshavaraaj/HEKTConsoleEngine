@@ -19,8 +19,7 @@ namespace HEKTConsoleEngine {
 			AppUpdate();
             HandleDebug(renderer);
 			renderer.RenderScreenBuffer();
-			renderer.RenderColorBuffer();
-            HandleTPSCap();
+            HandleTPSCap(); 
             HandleQuit();
         }
     }
@@ -32,7 +31,9 @@ namespace HEKTConsoleEngine {
 
     void Application::DebugOn(int key)
     {
+#ifdef _DEBUG
 		DebugKey = key;
+#endif // DEBUG
     }
 
     Application::Application() 
@@ -64,6 +65,7 @@ namespace HEKTConsoleEngine {
 
     void Application::HandleDebug(Renderer& render) 
     {
+
         if (DebugKey == NULL) return;
         if (inputSystem.GetKeyDown(DebugKey))
         {
@@ -88,7 +90,9 @@ namespace HEKTConsoleEngine {
 			debugInfo += "]";
         }
 
-		render.SetBufferString(0, 0, debugInfo, Color::LightGreen);
+		std::wstring debugInfoW(debugInfo.begin(), debugInfo.end());
+
+		render.SetBufferString(0, 0, debugInfoW, Color::LightGreen);
 	}
 
     void Application::HandleTPSCap()

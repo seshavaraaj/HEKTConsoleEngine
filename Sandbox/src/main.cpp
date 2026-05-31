@@ -1,4 +1,4 @@
-#include <Application.h>
+﻿#include <Application.h>
 #include <entt/entt.hpp>
 #include <Components.h>
 #include <EntityManager.h>
@@ -33,7 +33,7 @@ void Start()
 {
 	entt::entity Player = App.entityManager.CreateEntity();
 	App.entityManager.AddComponent(Player, TransformComponent(5, 46));
-	App.entityManager.AddComponent(Player, SpriteComponent(3, 3, "Player"));
+	App.entityManager.AddComponent(Player, SpriteComponent(4, 2, L"████"));
 	App.entityManager.AddComponent(Player, VelocityComponent(0, 0));
 }
 

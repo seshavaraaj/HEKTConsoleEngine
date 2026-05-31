@@ -31,25 +31,21 @@ namespace HEKTConsoleEngine
 	    int screenHeight = 209; //default place holder
 
         HANDLE hOut;
-	    DWORD dwBytesWritten = 0;
-
-    public:
-	    char* screenBuffer = nullptr;
-	    WORD* colorBuffer = nullptr;
+        SMALL_RECT writeRegion;
+		CHAR_INFO* screenBuffer = nullptr;
 
     public:
 	    Renderer();
 	    ~Renderer();
 	    void ClearScreenBuffer();
 		void RenderScreenBuffer();
-		void RenderColorBuffer();
 		void HideConsoleCursor();
 		void HandleResize();
         void CopyToScreenBuffer(std::string text);
-		void SetBufferChar(int x, int y, char c, WORD color);
-		void SetBufferString(int x, int y, int width, int height, const std::string& str, WORD color);
-		void SetBufferString(int x, int y, int width, int height, const std::string& str, WORD* colors);
-        void SetBufferString(int x, int y, const std::string& str, WORD color);
+		void SetBufferChar(int x, int y, wchar_t c, WORD color);
+		void SetBufferString(int x, int y, int width, int height, const std::wstring& str, WORD color);
+		void SetBufferString(int x, int y, int width, int height, const std::wstring& str, WORD* colors);
+        void SetBufferString(int x, int y, const std::wstring& str, WORD color);
 
     private:
 	    void CreateCustomBuffer();

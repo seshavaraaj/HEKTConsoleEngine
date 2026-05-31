@@ -17,13 +17,8 @@ namespace HEKTConsoleEngine
     {
         if (screenBuffer)
         {
-            delete[] screenBuffer;
-            screenBuffer = nullptr;
-        }
-        if (colorBuffer)
-        {
-            delete[] colorBuffer;
-            colorBuffer = nullptr;
+			delete[] screenBuffer;
+			screenBuffer = nullptr;
         }
         if (hOut != INVALID_HANDLE_VALUE)
         {
@@ -48,26 +43,27 @@ namespace HEKTConsoleEngine
     {
         screenWidth = width;
         screenHeight = height;
+
         if (screenBuffer)
         {
             delete[] screenBuffer;
-            screenBuffer = nullptr;
+			screenBuffer = nullptr;
         }
-        if (colorBuffer)
-        {
-            delete[] colorBuffer;
-            colorBuffer = nullptr;
-        }
-        screenBuffer = new char[screenWidth * screenHeight + 1];
-        colorBuffer = new WORD[screenWidth * screenHeight + 1];
+
+		screenBuffer = new CHAR_INFO[screenWidth * screenHeight + 1];
 
 		SetConsoleScreenBufferSize(hOut, { (short)screenWidth, (short)screenHeight });
 	}
 
     void Renderer::ClearScreenBuffer()
     {
-        memset(screenBuffer, ' ', screenWidth * screenHeight);
-        memset(colorBuffer, (WORD)Color::White, screenWidth * screenHeight * sizeof(WORD));
+		int count = screenWidth * screenHeight;
+        CHAR_INFO fill;
+        fill.Char.UnicodeChar = ' ';
+        fill.Attributes = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+
+        for (size_t i = 0; i < count; ++i)
+            screenBuffer[i] = fill;
 	}
 
     void Renderer::GetVisibleConsoleSize(int& width, int& height)
@@ -83,12 +79,8 @@ namespace HEKTConsoleEngine
 
     void Renderer::RenderScreenBuffer()
     {
-        WriteConsoleOutputCharacterA(hOut, screenBuffer, screenWidth * screenHeight, { 0, 0 }, &dwBytesWritten);
-	}
-
-    void Renderer::RenderColorBuffer()
-    {
-        WriteConsoleOutputAttribute(hOut, colorBuffer, screenWidth * screenHeight, { 0, 0 }, &dwBytesWritten);
+		writeRegion = { 0, 0, (short)(screenWidth - 1), (short)(screenHeight - 1) };
+        WriteConsoleOutputW(hOut, screenBuffer, { (SHORT)screenWidth, (SHORT)screenHeight }, { 0, 0 }, &writeRegion);
 	}
 
     void Renderer::HandleResize()
@@ -97,6 +89,7 @@ namespace HEKTConsoleEngine
         GetVisibleConsoleSize(currentWidth, currentHeight);
         if (currentWidth != screenWidth || currentHeight != screenHeight)
         {
+			ClearScreenBuffer();
             SetupCustomBuffer(currentWidth, currentHeight);
 		}
     }
@@ -109,15 +102,15 @@ namespace HEKTConsoleEngine
 		memcpy(screenBuffer, text.c_str(), length);
 	}
 
-    void Renderer::SetBufferChar(int x, int y, char c, WORD color)
+    void Renderer::SetBufferChar(int x, int y, wchar_t c, WORD color)
     {
         if (x < 0 || x >= screenWidth || y < 0 || y >= screenHeight)
             return;
-        screenBuffer[y * screenWidth + x] = c;
-		colorBuffer[y * screenWidth + x] = color;
+		screenBuffer[y * screenWidth + x].Char.UnicodeChar = c;
+		screenBuffer[y * screenWidth + x].Attributes = color;
 	}
     
-    void Renderer::SetBufferString(int x, int y, int width, int height, const std::string& str, WORD color)
+    void Renderer::SetBufferString(int x, int y, int width, int height, const std::wstring& str, WORD color)
     {
         int halfSpriteWidth = width / 2;
         int halfSpriteHeight = height / 2;
@@ -139,7 +132,7 @@ namespace HEKTConsoleEngine
         }
     }
 
-    void Renderer::SetBufferString(int x, int y, int width, int height, const std::string& str, WORD* colors)
+    void Renderer::SetBufferString(int x, int y, int width, int height, const std::wstring& str, WORD* colors)
     {
         int halfSpriteWidth = width / 2;
         int halfSpriteHeight = height / 2;
@@ -160,7 +153,7 @@ namespace HEKTConsoleEngine
         }
 	}
 
-    void Renderer::SetBufferString(int x, int y, const std::string& str, WORD color)
+    void Renderer::SetBufferString(int x, int y, const std::wstring& str, WORD color)
     {
         int currentX = x;
         int currentY = y;
