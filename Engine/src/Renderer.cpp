@@ -52,7 +52,22 @@ namespace HEKTConsoleEngine
 
 		screenBuffer = new CHAR_INFO[screenWidth * screenHeight + 1];
 
-		SetConsoleScreenBufferSize(hOut, { (short)screenWidth, (short)screenHeight });
+		short w = (short)screenWidth;
+		short h = (short)screenHeight;
+
+		CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+        if (GetConsoleScreenBufferInfo(hOut, &csbi))
+        {
+			short tempW = (w > csbi.dwSize.X) ? w : csbi.dwSize.X;
+			short tempH = (h > csbi.dwSize.Y) ? h : csbi.dwSize.Y;
+			SetConsoleScreenBufferSize(hOut, { tempW, tempH });
+
+			SMALL_RECT rect = { 0, 0, (short)(w - 1), (short)(h - 1) };
+			SetConsoleWindowInfo(hOut, TRUE, &rect);
+
+			SetConsoleScreenBufferSize(hOut, { w, h });
+        }
 	}
 
     void Renderer::ClearScreenBuffer()
@@ -87,10 +102,42 @@ namespace HEKTConsoleEngine
     {
 		int currentWidth, currentHeight;
         GetVisibleConsoleSize(currentWidth, currentHeight);
+
+        if (currentWidth <= 0 || currentHeight <= 0)
+			return;
+
         if (currentWidth != screenWidth || currentHeight != screenHeight)
         {
-			ClearScreenBuffer();
             SetupCustomBuffer(currentWidth, currentHeight);
+			ClearScreenBuffer();
+
+            // 1. Physically overwrite any residual characters living in the active hardware buffer
+            DWORD charsWritten;
+            COORD home = { 0, 0 };
+            FillConsoleOutputCharacterW(hOut, L' ', currentWidth * currentHeight, home, &charsWritten);
+            FillConsoleOutputAttribute(hOut, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE, currentWidth * currentHeight, home, &charsWritten);
+
+            // 2. Hide the Scrollbar UI on the console Window bounds
+            HWND consoleWindow = GetConsoleWindow();
+            if (consoleWindow != NULL)
+            {
+                ShowScrollBar(consoleWindow, SB_BOTH, FALSE);
+            }
+
+            // 3. Enable Virtual Terminal Processing to clear Windows Terminal Scrollback History
+            DWORD consoleMode;
+            GetConsoleMode(hOut, &consoleMode);
+            SetConsoleMode(hOut, consoleMode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+
+            // Write ANSI escape sequences: 
+            // \x1b[2J  -> Clears viewport
+            // \x1b[3J  -> Clears scrollback history (Destroys ghost frames)
+            // \x1b[H   -> Resets cursor to home
+            DWORD written;
+            WriteConsoleW(hOut, L"\x1b[2J\x1b[3J\x1b[H", 11, &written, NULL);
+
+            // Restore previous mode
+            SetConsoleMode(hOut, consoleMode);
 		}
     }
 
