@@ -26,6 +26,12 @@ namespace HEKTConsoleEngine
         White = 15
     };
 
+    enum RenderType
+    {
+        FullScreen,
+        DirtyRect
+	};
+
     class Renderer
     {
     private:
@@ -41,8 +47,7 @@ namespace HEKTConsoleEngine
     public:
 	    Renderer();
 	    ~Renderer();
-		void RenderFullScreenBuffer();
-        void RenderDirtyRectBuffer();
+		void Render();
 		void ClearFullScreenBuffer();
 		void HideConsoleCursor();
 		void HandleResize();
@@ -50,8 +55,12 @@ namespace HEKTConsoleEngine
 		void SetBufferString(int x, int y, int width, int height, const std::wstring& str, WORD* colors);
 		void SetBufferString(int x, int y, const std::wstring& str, WORD colors);
         SMALL_RECT GetDirtyRectPrevious();
+		void SetRenderType(RenderType type);
 
     private:
+		RenderType currentRenderType = RenderType::DirtyRect;
+        void RenderDirtyRectBuffer();
+		void RenderFullScreenBuffer();
 		void SetBufferChar(int x, int y, wchar_t c, WORD color);
 		void MakeDirtyRect(int top, int left, int bottom, int right);
 	    void CreateCustomBuffer();

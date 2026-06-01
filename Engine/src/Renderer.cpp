@@ -83,6 +83,18 @@ namespace HEKTConsoleEngine
         height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
     }
 
+    void Renderer::Render()
+    {
+        if (currentRenderType == RenderType::FullScreen)
+        {
+            RenderFullScreenBuffer();
+        }
+        else
+        {
+            RenderDirtyRectBuffer();
+        }
+    }
+
     void Renderer::RenderFullScreenBuffer()
     {
         COORD bufferSize = { (SHORT)screenWidth, (SHORT)screenHeight };
@@ -255,8 +267,11 @@ namespace HEKTConsoleEngine
 
     void Renderer::MakeDirtyRect(int top, int left, int bottom, int right)
     {
+        if (currentRenderType != RenderType::DirtyRect)
+			return;
         if (right < 0 || left >= screenWidth + 1 || bottom < 0 || top >= screenHeight + 1)
 			return;
+        
 		if (top < 0) top = 0;
 		if (left < 0) left = 0;
 		if (bottom >= screenHeight) bottom = screenHeight - 1;
@@ -290,5 +305,10 @@ namespace HEKTConsoleEngine
     SMALL_RECT Renderer::GetDirtyRectPrevious()
     {
         return DirtyRectPrevious;
+	}
+
+    void Renderer::SetRenderType(RenderType type)
+    {
+        currentRenderType = type;
 	}
 }

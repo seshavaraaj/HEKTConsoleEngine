@@ -21,8 +21,7 @@ namespace HEKTConsoleEngine {
 			AppUpdate();
             HandleDebug();
 
-			renderer.RenderDirtyRectBuffer();
-            //renderer.RenderFullScreenBuffer();
+			renderer.Render();
             HandleTPSCap(); 
             HandleQuit();
         }
@@ -84,6 +83,18 @@ namespace HEKTConsoleEngine {
 		debugInfo += L"TPS: " + std::to_wstring(1.0f / fDeltaTime) + L"\n";
 		debugInfo += L"Dirty Rect: " + std::to_wstring(renderer.GetDirtyRectPrevious().Top) + L"," + std::to_wstring(renderer.GetDirtyRectPrevious().Left) + L"," + std::to_wstring(renderer.GetDirtyRectPrevious().Bottom) + L"," + std::to_wstring(renderer.GetDirtyRectPrevious().Right) + L"\n";
 		debugInfo += L"Entities: " + std::to_wstring(registry.storage<entt::entity>().size()) + L"\n";
+        
+        for (auto&& [id, pool] : registry.storage())
+        {
+            std::string_view componentName = pool.info().name();
+
+            size_t count = pool.size();
+
+            debugInfo += L"\n[";
+            debugInfo += std::wstring(componentName.begin(), componentName.end());
+            debugInfo += L": " + std::to_wstring(count);
+            debugInfo += L"]";
+        }
 
         renderer.SetBufferString(0, 0, debugInfo, Color::LightGreen);
 	}
@@ -112,5 +123,10 @@ namespace HEKTConsoleEngine {
         {
 			isRunning = false;
         }
+    }
+
+    void Application::SetRenderType(RenderType type)
+    {
+		renderer.SetRenderType(type);
     }
 }

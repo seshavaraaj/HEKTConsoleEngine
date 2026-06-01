@@ -13,6 +13,7 @@
 namespace HEKTConsoleEngine {
     class Application {
     public:
+		void SetRenderType(RenderType type);
 		void DebugOn(int key);
 		void QuitOn(int key);
         void Run();
