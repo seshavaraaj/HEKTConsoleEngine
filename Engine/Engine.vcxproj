@@ -136,6 +136,7 @@
     <ClCompile Include="src\PhysicsSystem.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\RenderSystem.cpp" />
+    <ClCompile Include="src\SpriteParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="include\PhysicsSystem.h" />
     <ClInclude Include="include\Renderer.h" />
     <ClInclude Include="include\RenderSystem.h" />
+    <ClInclude Include="include\SpriteParser.h" />
     <ClInclude Include="vendor\entt\entt.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

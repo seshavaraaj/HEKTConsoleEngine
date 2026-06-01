@@ -13,12 +13,16 @@ namespace HEKTConsoleEngine {
 			fDeltaTime = deltaTime.count();
 			inputSystem.UpdateKeyStates();
 			renderer.HandleResize();
-			renderer.ClearScreenBuffer();
+            renderer.ClearFullScreenBuffer();
+
 			physicsSystem.Update(fDeltaTime);
 			renderSystem.Update();
+
 			AppUpdate();
-            HandleDebug(renderer);
-			renderer.RenderScreenBuffer();
+            HandleDebug();
+
+			renderer.RenderDirtyRectBuffer();
+            //renderer.RenderFullScreenBuffer();
             HandleTPSCap(); 
             HandleQuit();
         }
@@ -60,39 +64,28 @@ namespace HEKTConsoleEngine {
     void Application::SetFullscreen() 
     {
         keybd_event(VK_F11, 0, 0, 0);
+		Sleep(100);
         keybd_event(VK_F11, 0, KEYEVENTF_KEYUP, 0);
 	}
 
-    void Application::HandleDebug(Renderer& render) 
+    void Application::HandleDebug() 
     {
-
         if (DebugKey == NULL) return;
         if (inputSystem.GetKeyDown(DebugKey))
         {
 			debugMode = !debugMode;
         }
-		if (!debugMode) return;
-		size_t entityCount = registry.storage<entt::entity>().capacity();
+        if (!debugMode) return;
 
-        std::string debugInfo = 
-            "|DeltaTime: " + std::to_string(fDeltaTime) +
-            "|TPS: " + std::to_string(1 / fDeltaTime) +
-			"\n|Entities: " + std::to_string(entityCount);
-        for (auto&& [id, pool] : registry.storage())
-        {
-            std::string_view componentName = pool.info().name();
+        std::wstring debugInfo;
 
-            size_t count = pool.size(); 
+		debugInfo += L"Debug Mode ON\n";
+		debugInfo += L"DeltaTime: " + std::to_wstring(fDeltaTime) + L"\n";
+		debugInfo += L"TPS: " + std::to_wstring(1.0f / fDeltaTime) + L"\n";
+		debugInfo += L"Dirty Rect: " + std::to_wstring(renderer.GetDirtyRectPrevious().Top) + L"," + std::to_wstring(renderer.GetDirtyRectPrevious().Left) + L"," + std::to_wstring(renderer.GetDirtyRectPrevious().Bottom) + L"," + std::to_wstring(renderer.GetDirtyRectPrevious().Right) + L"\n";
+		debugInfo += L"Entities: " + std::to_wstring(registry.storage<entt::entity>().size()) + L"\n";
 
-            debugInfo += "\n[";
-            debugInfo += componentName;
-            debugInfo += ": " + std::to_string(count);
-			debugInfo += "]";
-        }
-
-		std::wstring debugInfoW(debugInfo.begin(), debugInfo.end());
-
-		render.SetBufferString(0, 0, debugInfoW, Color::LightGreen);
+        renderer.SetBufferString(0, 0, debugInfo, Color::LightGreen);
 	}
 
     void Application::HandleTPSCap()

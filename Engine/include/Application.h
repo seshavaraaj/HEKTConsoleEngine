@@ -6,6 +6,7 @@
 #include <InputSystem.h>
 #include <EntityManager.h>
 #include <PhysicsSystem.h>
+#include <SpriteParser.h>
 #include <chrono>
 #include <thread>
 
@@ -23,6 +24,7 @@ namespace HEKTConsoleEngine {
 		std::function<void(float)> OnUpdate = nullptr;
 		std::function<void()> OnStart = nullptr;
 		EntityManager entityManager{ registry };
+		SpriteParser spriteParser;
 
     private:
 		Renderer renderer;
@@ -42,7 +44,7 @@ namespace HEKTConsoleEngine {
         void AppUpdate();
 		void AppStart();
 		void SetFullscreen();
-        void HandleDebug(Renderer& render);
+        void HandleDebug();
 		void HandleTPSCap();
 		void HandleQuit();
     };

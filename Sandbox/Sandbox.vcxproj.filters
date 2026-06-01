@@ -19,4 +19,8 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="assets\sprites\SpaceShip.sprite" />
+    <CopyFileToFolders Include="assets\sprites\Bullet.sprite" />
+  </ItemGroup>
 </Project>

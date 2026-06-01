@@ -1,12 +1,10 @@
 ﻿#include <Application.h>
-#include <entt/entt.hpp>
-#include <Components.h>
-#include <EntityManager.h>
+
+HEKTConsoleEngine::Application App;
+entt::entity player = App.entityManager.CreateEntity();
 
 void Start();
-void Update(float DeltaTime);
-void MovePlayer();
-HEKTConsoleEngine::Application App;
+void Update(float deltaTime);
 
 int main() {
 	App.inputSystem.SetUsingKeys({ VK_LEFT , VK_RIGHT, VK_ESCAPE, VK_F3, VK_F4});
@@ -14,42 +12,32 @@ int main() {
 	App.DebugOn(VK_F3);
 	App.QuitOn(VK_ESCAPE);
 
-	App.OnStart = [&]()
-		{
-			Start();
-		};
-	App.OnUpdate = [&](float deltaTime)
-		{
-			Update(deltaTime);
-		};
+	App.OnStart = Start;
+
+	App.OnUpdate = Update;
 
 	App.Run();
 	return 0;
 }
 
-int playerMovementSpeed = 100;
-
-void Start()
-{
-	entt::entity Player = App.entityManager.CreateEntity();
-	App.entityManager.AddComponent(Player, TransformComponent(5, 46));
-	App.entityManager.AddComponent(Player, SpriteComponent(4, 2, L"████"));
-	App.entityManager.AddComponent(Player, VelocityComponent(0, 0));
+void Start() {
+	SpriteComponent playerSpriteComponent = App.spriteParser.ParseSpriteComponent("assets/sprites/SpaceShip.sprite");
+	App.entityManager.AddComponent(player, SpriteComponent(playerSpriteComponent));
+	App.entityManager.AddComponent(player, TransformComponent(10, 50));
+	App.entityManager.AddComponent(player, VelocityComponent(0.0f, 0.0f));
 }
 
-void Update(float DeltaTime)
-{
-	MovePlayer();
-}
-
-void MovePlayer()
-{
-	App.GetRegistry().view<VelocityComponent>().each([&](auto entity, auto& velocity) {
-		if (App.inputSystem.GetKey(VK_LEFT))
-			velocity.dx = -playerMovementSpeed;
-		else if (App.inputSystem.GetKey(VK_RIGHT))
-			velocity.dx = playerMovementSpeed;
-		else
-			velocity.dx = 0;
-		});
+void Update(float deltaTime) {
+	if (App.inputSystem.GetKey(VK_LEFT))
+	{
+		App.GetRegistry().get<VelocityComponent>(player).dx = -100.0f;
+	}
+	else if (App.inputSystem.GetKey(VK_RIGHT))
+	{
+		App.GetRegistry().get<VelocityComponent>(player).dx = 100.0f;
+	}
+	else
+	{
+		App.GetRegistry().get<VelocityComponent>(player).dx = 0.0f;
+	}
 }

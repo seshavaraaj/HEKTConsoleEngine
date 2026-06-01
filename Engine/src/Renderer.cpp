@@ -1,5 +1,7 @@
+#define NOMINMAX
 #include "Renderer.h"
 #include <iostream>
+#include <algorithm>
 
 namespace HEKTConsoleEngine
 {
@@ -9,7 +11,7 @@ namespace HEKTConsoleEngine
         CreateCustomBuffer();
 		GetVisibleConsoleSize(visibleWidth, visibleHeight);
 		SetupCustomBuffer(visibleWidth, visibleHeight);
-		ClearScreenBuffer();
+		ClearFullScreenBuffer();
 		HideConsoleCursor();
     }
 
@@ -70,17 +72,6 @@ namespace HEKTConsoleEngine
         }
 	}
 
-    void Renderer::ClearScreenBuffer()
-    {
-		int count = screenWidth * screenHeight;
-        CHAR_INFO fill;
-        fill.Char.UnicodeChar = ' ';
-        fill.Attributes = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-
-        for (size_t i = 0; i < count; ++i)
-            screenBuffer[i] = fill;
-	}
-
     void Renderer::GetVisibleConsoleSize(int& width, int& height)
     {
 		CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -92,11 +83,55 @@ namespace HEKTConsoleEngine
         height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
     }
 
-    void Renderer::RenderScreenBuffer()
+    void Renderer::RenderFullScreenBuffer()
     {
-		writeRegion = { 0, 0, (short)(screenWidth - 1), (short)(screenHeight - 1) };
-        WriteConsoleOutputW(hOut, screenBuffer, { (SHORT)screenWidth, (SHORT)screenHeight }, { 0, 0 }, &writeRegion);
+        COORD bufferSize = { (SHORT)screenWidth, (SHORT)screenHeight };
+        COORD bufCoord = { 0, 0 };
+        SMALL_RECT writeRegion = { 0, 0, (SHORT)(screenWidth - 1), (SHORT)(screenHeight - 1) };
+        WriteConsoleOutputW(hOut, screenBuffer, bufferSize, bufCoord, &writeRegion);
 	}
+
+    void Renderer::RenderDirtyRectBuffer()
+    {
+        SMALL_RECT currentFrameDirtyRect = DirtyRect;
+        bool currentHasDirty = hasDirtyRect;
+
+		MakeDirtyRect(DirtyRectPrevious.Top, DirtyRectPrevious.Left, DirtyRectPrevious.Bottom, DirtyRectPrevious.Right);
+
+        if (hasDirtyRect)
+        {
+            COORD bufferSize = { (SHORT)screenWidth, (SHORT)screenHeight };
+            COORD bufCoord = { DirtyRect.Left, DirtyRect.Top };
+            WriteConsoleOutputW(hOut, screenBuffer, bufferSize, bufCoord, &DirtyRect);
+        }
+
+        if (currentHasDirty)
+        {
+		    DirtyRectPrevious = currentFrameDirtyRect;
+        }
+        else
+        {
+            DirtyRectPrevious = { -1, -1, -1, -1 }; // Empty state
+        }
+        
+        hasDirtyRect = false;
+    }
+
+    void Renderer::ClearFullScreenBuffer()
+    {
+        int count = screenWidth * screenHeight;
+        
+        // A CHAR_INFO is exactly 32 bits (struct size is 4 bytes).
+        // The character (L' ' = 0x0020) takes the lower 16 bits.
+        // The color (White = 0x0007) takes the upper 16 bits.
+        // We pack this into a single 32-bit integer: 0x00070020
+        DWORD fillValue = 0x00070020;
+        
+        // Cast buffer to DWORD and fill. This forces 32-bit (or vectorized 128/256-bit) assignments.
+        DWORD* ptr = reinterpret_cast<DWORD*>(screenBuffer);
+        std::fill_n(ptr, count, fillValue);
+    }
+
 
     void Renderer::HandleResize()
     {
@@ -109,7 +144,7 @@ namespace HEKTConsoleEngine
         if (currentWidth != screenWidth || currentHeight != screenHeight)
         {
             SetupCustomBuffer(currentWidth, currentHeight);
-			ClearScreenBuffer();
+			ClearFullScreenBuffer();
 
             // 1. Physically overwrite any residual characters living in the active hardware buffer
             DWORD charsWritten;
@@ -141,21 +176,15 @@ namespace HEKTConsoleEngine
 		}
     }
 
-    void Renderer::CopyToScreenBuffer(std::string text)
-    {
-        size_t length = text.length();
-        if (length > screenWidth * screenHeight)
-            length = screenWidth * screenHeight;
-		memcpy(screenBuffer, text.c_str(), length);
-	}
-
     void Renderer::SetBufferChar(int x, int y, wchar_t c, WORD color)
     {
         if (x < 0 || x >= screenWidth || y < 0 || y >= screenHeight)
             return;
-		screenBuffer[y * screenWidth + x].Char.UnicodeChar = c;
-		screenBuffer[y * screenWidth + x].Attributes = color;
-	}
+        if (c == ' ')
+			return;
+        screenBuffer[y * screenWidth + x].Char.UnicodeChar = c;
+        screenBuffer[y * screenWidth + x].Attributes = color;
+    }
     
     void Renderer::SetBufferString(int x, int y, int width, int height, const std::wstring& str, WORD color)
     {
@@ -177,6 +206,7 @@ namespace HEKTConsoleEngine
             SetBufferChar(currentX, currentY, str[(int)i], color);
             currentX++;
         }
+		MakeDirtyRect(calculatedY, calculatedX, calculatedY + height, calculatedX + width);
     }
 
     void Renderer::SetBufferString(int x, int y, int width, int height, const std::wstring& str, WORD* colors)
@@ -198,24 +228,56 @@ namespace HEKTConsoleEngine
             SetBufferChar(currentX, currentY, str[(int)i], colors[i]);
             currentX++;
         }
+		MakeDirtyRect(calculatedY, calculatedX, calculatedY + height, calculatedX + width);
 	}
 
     void Renderer::SetBufferString(int x, int y, const std::wstring& str, WORD color)
     {
         int currentX = x;
         int currentY = y;
-        for (int i = 0; i < str.length(); i++)
+        int right = 0;
+        int bottom = 0;
+        for (int i = 0; i < str.length() - 1; i++)
         {
             if (str[i] == '\n')
             {
                 currentY++;
+				right = std::max(right, currentX);
                 currentX = x;
                 continue;
             }
             SetBufferChar(currentX, currentY, str[(int)i], color);
             currentX++;
         }
+		bottom = currentY + 1;
+		MakeDirtyRect(y, x, bottom, right);
     }
+
+    void Renderer::MakeDirtyRect(int top, int left, int bottom, int right)
+    {
+        if (right < 0 || left >= screenWidth + 1 || bottom < 0 || top >= screenHeight + 1)
+			return;
+		if (top < 0) top = 0;
+		if (left < 0) left = 0;
+		if (bottom >= screenHeight) bottom = screenHeight - 1;
+		if (right >= screenWidth) right = screenWidth - 1;
+
+        if (!hasDirtyRect)
+        {
+            DirtyRect.Top = (short)top;
+            DirtyRect.Left = (short)left;
+            DirtyRect.Bottom = (short)bottom;
+            DirtyRect.Right = (short)right;
+            hasDirtyRect = true;
+        }
+        else
+        {
+            DirtyRect.Top = std::min(DirtyRect.Top, (short)top);
+            DirtyRect.Left = std::min(DirtyRect.Left, (short)left);
+            DirtyRect.Bottom = std::max(DirtyRect.Bottom, (short)bottom);
+            DirtyRect.Right = std::max(DirtyRect.Right, (short)right);
+        }
+	}
 
     void Renderer::HideConsoleCursor()
     {
@@ -223,5 +285,10 @@ namespace HEKTConsoleEngine
         GetConsoleCursorInfo(hOut, &cursorInfo);
         cursorInfo.bVisible = FALSE;
         SetConsoleCursorInfo(hOut, &cursorInfo);
+	}
+
+    SMALL_RECT Renderer::GetDirtyRectPrevious()
+    {
+        return DirtyRectPrevious;
 	}
 }

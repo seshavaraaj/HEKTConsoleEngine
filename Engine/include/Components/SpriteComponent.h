@@ -11,8 +11,4 @@ struct SpriteComponent
 		width(width),
 		height(height),
 		spriteData(spriteData) {}
-	SpriteComponent(int width, int height, const std::wstring& spriteData, int offsetX, int offsetY) :
-		width(width),
-		height(height),
-		spriteData(spriteData) {}
 };
