@@ -5,6 +5,8 @@ namespace HEKTConsoleEngine {
     void Application::Run() 
     {
 		AppStart();
+        RenderSplashScreen();
+
         while (isRunning)
         {
 			timePoint2 = std::chrono::high_resolution_clock::now();
@@ -15,8 +17,9 @@ namespace HEKTConsoleEngine {
 			renderer.HandleResize();
             renderer.ClearFullScreenBuffer();
 
-			physicsSystem.Update(fDeltaTime);
-			renderSystem.Update();
+			physicsSystem.VelocityUpdate(fDeltaTime);
+			physicsSystem.CollisionUpdate();
+            renderSystem.Update();
 
 			AppUpdate();
             HandleDebug();
@@ -82,7 +85,7 @@ namespace HEKTConsoleEngine {
 		debugInfo += L"DeltaTime: " + std::to_wstring(fDeltaTime) + L"\n";
 		debugInfo += L"TPS: " + std::to_wstring(1.0f / fDeltaTime) + L"\n";
 		debugInfo += L"Dirty Rect: " + std::to_wstring(renderer.GetDirtyRectPrevious().Top) + L"," + std::to_wstring(renderer.GetDirtyRectPrevious().Left) + L"," + std::to_wstring(renderer.GetDirtyRectPrevious().Bottom) + L"," + std::to_wstring(renderer.GetDirtyRectPrevious().Right) + L"\n";
-		debugInfo += L"Entities: " + std::to_wstring(registry.storage<entt::entity>().size()) + L"\n";
+		debugInfo += L"Entities: " + std::to_wstring(registry.view<entt::entity>().size()) + L"\n";
         
         for (auto&& [id, pool] : registry.storage())
         {
@@ -128,5 +131,13 @@ namespace HEKTConsoleEngine {
     void Application::SetRenderType(RenderType type)
     {
 		renderer.SetRenderType(type);
+    }
+
+    void Application::RenderSplashScreen()
+    {
+        std::wstring spashScreen = ENGINE_SPLASH_SCREEN;
+        renderer.SetBufferString(0, 0, spashScreen, Color::LightCyan);
+        renderer.Render();
+        Sleep(2000);
     }
 }

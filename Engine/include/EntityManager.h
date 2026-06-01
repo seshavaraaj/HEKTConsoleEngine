@@ -9,6 +9,7 @@ namespace HEKTConsoleEngine
 	public:
 		EntityManager(entt::registry& registry) : registry(registry) {}
 		entt::entity CreateEntity();
+		void DestroyEntity(entt::entity entity);
 		template<typename T>
 		T& AddComponent(entt::entity entity, T&& component);
 	private:
@@ -19,6 +20,11 @@ namespace HEKTConsoleEngine
 	{
 		entt::entity entityCreated = registry.create();
 		return entityCreated;
+	}
+
+	inline void EntityManager::DestroyEntity(entt::entity entity)
+	{
+		registry.destroy(entity);
 	}
 
 	template<typename T>

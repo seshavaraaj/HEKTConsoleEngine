@@ -22,5 +22,6 @@
   <ItemGroup>
     <CopyFileToFolders Include="assets\sprites\SpaceShip.sprite" />
     <CopyFileToFolders Include="assets\sprites\Bullet.sprite" />
+    <CopyFileToFolders Include="assets\sprites\Enemy.sprite" />
   </ItemGroup>
 </Project>

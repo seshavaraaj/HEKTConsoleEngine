@@ -53,7 +53,7 @@ namespace HEKTConsoleEngine
         return wstrTo;
 	}
 
-    const SpriteComponent SpriteParser::ParseSpriteComponent(const std::string& filePath)
+    const SpriteComponent SpriteParser::ParseSpriteComponent(const std::string& filePath, WORD color)
     {
         std::wstring spriteData = ParseSprite(filePath);
         int width = 0;
@@ -71,7 +71,7 @@ namespace HEKTConsoleEngine
             height++;
             pos = newlinePos + 1; // Move past the newline
         }
-        return SpriteComponent(width, height, spriteData);
+        return SpriteComponent(width, height, spriteData, color);
 	}
 
 

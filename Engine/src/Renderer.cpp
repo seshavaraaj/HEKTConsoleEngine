@@ -249,7 +249,7 @@ namespace HEKTConsoleEngine
         int currentY = y;
         int right = 0;
         int bottom = 0;
-        for (int i = 0; i < str.length() - 1; i++)
+        for (int i = 0; i < str.length(); i++)
         {
             if (str[i] == '\n')
             {

@@ -15,6 +15,6 @@ namespace HEKTConsoleEngine
 		std::string BuildFilePath(const std::string& filePath);
 	public:
 		const std::wstring ParseSprite(const std::string& filePath);
-		const SpriteComponent ParseSpriteComponent(const std::string& filePath);
+		const SpriteComponent ParseSpriteComponent(const std::string& filePath, WORD color);
 	};
 }

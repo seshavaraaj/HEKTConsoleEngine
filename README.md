@@ -3,6 +3,17 @@
 ![Static Badge](https://img.shields.io/badge/C%2B%2B-v20-Standard?style=flat-square&logo=c%2B%2B&logoColor=white&labelColor=purple&color=white)
 ![Static Badge](https://img.shields.io/badge/Terminal-Windows-CMD?style=flat-square&logo=iterm2&logoColor=white&labelColor=black&color=white)
 
+    ===================================================
+     _    _ ______ _  _ _______  _____             _ 
+    | |  | |  ____| |/ /__   __|/ ____|           | |
+    | |__| | |__  | ' /   | |  | |     ___  _ __  | |
+    |  __  |  __| |  <    | |  | |    / _ \| '_ \ | |
+    | |  | | |____| . \   | |  | |___| (_) | | | ||_|
+    |_|  |_|______|_|\_\  |_|   \_____\___/|_| |_|(_)
+                                                     
+                     CONSOLE ENGINE v1.0
+    ===================================================
+
 **HEKT Console Engine** is a fast, lightweight 2D game engine built in C++20 designed specifically for text-based and ASCII games using the Windows Console. 
 
 Built with modern C++ and an Entity Component System (ECS) architecture, it abstracts away the complex and verbose Windows Console API into an easy-to-use framework for rapid game development.

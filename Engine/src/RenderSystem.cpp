@@ -20,6 +20,6 @@ namespace HEKTConsoleEngine
 	{
 		auto& transform = registry.get<TransformComponent>(entity);
 		auto& sprite = registry.get<SpriteComponent>(entity);
-		renderer.SetBufferString((int)transform.x, (int)transform.y, sprite.width, sprite.height, sprite.spriteData, Color::White);
+		renderer.SetBufferString((int)transform.x, (int)transform.y, sprite.width, sprite.height, sprite.spriteData, sprite.color);
 	}
 }

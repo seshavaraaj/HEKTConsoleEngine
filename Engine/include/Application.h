@@ -26,11 +26,11 @@ namespace HEKTConsoleEngine {
 		std::function<void()> OnStart = nullptr;
 		EntityManager entityManager{ registry };
 		SpriteParser spriteParser;
+		PhysicsSystem physicsSystem{ registry };
 
     private:
 		Renderer renderer;
 		RenderSystem renderSystem{ registry, renderer };
-		PhysicsSystem physicsSystem{ registry };
 		float fDeltaTime;
 		bool isRunning = true;
 		bool debugMode = false;
@@ -48,5 +48,19 @@ namespace HEKTConsoleEngine {
         void HandleDebug();
 		void HandleTPSCap();
 		void HandleQuit();
+		void RenderSplashScreen();
+
+		const wchar_t* ENGINE_SPLASH_SCREEN = LR"(
+    ===================================================
+     _    _ ______ _  _ _______  _____             _ 
+    | |  | |  ____| |/ /__   __|/ ____|           | |
+    | |__| | |__  | ' /   | |  | |     ___  _ __  | |
+    |  __  |  __| |  <    | |  | |    / _ \| '_ \ | |
+    | |  | | |____| . \   | |  | |___| (_) | | | ||_|
+    |_|  |_|______|_|\_\  |_|   \_____\___/|_| |_|(_)
+                                                     
+                     CONSOLE ENGINE v1.0
+    ===================================================
+    )";
     };
 }
